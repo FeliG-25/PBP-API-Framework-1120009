@@ -42,16 +42,6 @@ func GetAUserInfo(user User) UserInfo {
 func GetUserLogin(c echo.Context) error {
 	db := connect()
 	defer db.Close()
-	// user := new(UserInfo)
-
-	// err := r.ParseForm()
-	// if err != nil {
-	// 	log.Println(err)
-	// 	response := errorParseFormInfo()
-	// 	w.Header().Set("Content-Type", "application/json")
-	// 	json.NewEncoder(w).Encode((response))
-	// 	return c.JSON(http.StatusOK, response)
-	// }
 
 	password := encodePassword(c.FormValue("password"))
 	fmt.Println(password)
@@ -135,15 +125,6 @@ func GetAllUsers(c echo.Context) error {
 func InsertUser(c echo.Context) error {
 	db := connect()
 	defer db.Close()
-
-	// err := r.ParseForm()
-	// if err != nil {
-	// 	log.Println(err)
-	// 	response := errorParseFormInfo()
-	// 	w.Header().Set("Content-Type", "application/json")
-	// 	json.NewEncoder(w).Encode((response))
-	// 	return c.JSON(http.StatusOK, response)
-	// }
 
 	name := c.FormValue("name")
 	age, _ := strconv.Atoi(c.FormValue("age"))

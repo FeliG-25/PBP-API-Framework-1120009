@@ -9,13 +9,19 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo/v4"
-
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/rs/cors"
 )
 
 func main() {
 	router := echo.New()
+
+	//CORS
+	router.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+		AllowCredentials: true,
+	}))
 
 	// Middleware
 	router.Use(middleware.Logger())
@@ -39,17 +45,8 @@ func main() {
 	//Endpoint - Logout User
 	router.POST("/user/logout", controllers.UserLogout)
 
-	//CORS
-	corsHandler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"},
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
-		AllowCredentials: true, //kalo ga nanti ga bisa ngakses  karena cookies dkk
-	})
-
-	handler := corsHandler.Handler(router)
-
-	http.Handle("/", handler)
+	http.Handle("/", router)
 	fmt.Println("Connected to port 8080")
 	log.Println("Connected to port 8080")
-	log.Fatal(http.ListenAndServe(":8080", handler))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
