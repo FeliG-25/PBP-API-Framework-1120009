@@ -217,6 +217,7 @@ func DeleteUser(c echo.Context) error {
 		return c.JSON(http.StatusOK, response)
 	} else {
 		_, errQuery := db.Exec("DELETE FROM users WHERE id=?", userId)
+		fmt.Println(errQuery)
 		if errQuery == nil {
 			response := successUserInfoProcess()
 			response.Data = GetAUserInfo(user)

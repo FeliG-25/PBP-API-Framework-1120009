@@ -57,12 +57,12 @@ func errorUpdateForm() ErrorResponse {
 	return response
 }
 
-func errorDataForeignKey() ErrorResponse {
-	var response ErrorResponse
-	response.Status = 400
-	response.Message = "Error Can't Delete Foreign Key"
-	return response
-}
+// func errorDataForeignKey() ErrorResponse {
+// 	var response ErrorResponse
+// 	response.Status = 400
+// 	response.Message = "Error Can't Delete Foreign Key"
+// 	return response
+// }
 
 func errorUserNotFound() ErrorResponse {
 	var response ErrorResponse
