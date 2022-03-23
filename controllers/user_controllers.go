@@ -131,10 +131,11 @@ func InsertUser(c echo.Context) error {
 	address := c.FormValue("address")
 	password := encodePassword(c.FormValue("password"))
 	email := c.FormValue("email")
-	userType, _ := strconv.Atoi(c.FormValue("user type"))
+	userType, _ := strconv.Atoi(c.FormValue("userType"))
 
-	if name != "" && age != 0 && address != "" && password != "" && email != "" && userType != 0 {
-		result, errQuery := db.Exec("INSERT INTO users(name, age, address, password, email) values (?,?,?,?,?)", name, age, address, password, email)
+	if name != "" && age != 0 && address != "" && password != "" && email != "" {
+		result, errQuery := db.Exec("INSERT INTO users(name, age, address, password, email, userType) values (?,?,?,?,?,?)", name, age, address, password, email, userType)
+		fmt.Println(errQuery)
 		if errQuery == nil {
 			response := successUserInfoProcess()
 			userId, _ := result.LastInsertId()
