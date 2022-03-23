@@ -216,11 +216,6 @@ func DeleteUser(c echo.Context) error {
 		response := errorIDNotFound()
 		return c.JSON(http.StatusOK, response)
 	} else {
-		_, errDelete := db.Exec("DELETE FROM transactions WHERE userId = ?", userId)
-		if errDelete != nil {
-			response := errorDataForeignKey()
-			return c.JSON(http.StatusOK, response)
-		}
 		_, errQuery := db.Exec("DELETE FROM users WHERE id=?", userId)
 		if errQuery == nil {
 			response := successUserInfoProcess()
